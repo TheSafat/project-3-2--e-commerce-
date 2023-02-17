@@ -7,7 +7,7 @@
 
         if($flag){
             echo "login successful";
-            header('admin_dashboard.php');
+            header('location:admin_dashboard.php');
         } else {
             echo "wrong password";
         }

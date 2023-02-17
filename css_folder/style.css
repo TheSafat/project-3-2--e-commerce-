@@ -39,3 +39,7 @@ table tr td input{
     width: 100%;
     border-radius: 5px;
 }
+
+.product-image{
+    background-color: aqua;
+}

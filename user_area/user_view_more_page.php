@@ -12,6 +12,11 @@
         $user = 'Guest';
     }
 
+    $product_id = $_GET['product_id'];
+
+    $product_rows = $objCrudAdmin->displayProductByID($product_id);
+    $product_row = mysqli_fetch_assoc($product_rows);
+
 ?>
 
 <!DOCTYPE html>
@@ -70,10 +75,6 @@
     </nav>
     <!-- end of first child -->
 
-    <!-- calling add to cart  -->
-    <?php
-        $objCrudAdmin->cart();
-    ?>
 
     <!-- second child  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
@@ -105,74 +106,39 @@
 
 
         <!-- fourth child  -->
-
-
-
         <div class="row">
-            <div class="col-md-10">
-                <!-- Products -->
-                <div class="row">
-
-                    <?php $i=0; while(($row = mysqli_fetch_assoc($rows)) && $i<15){ ?>
-                        <div class="col-md-3 mb-4">
-                            <div class="card">
-                                <img src="../admin_area/product_images/<?php echo $row['img'] ?>" class="card-img-top"
-                                    alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $row['title'] ?></h5>
-                                    <p class="card-text"><?php echo $row['description'] ?></p>
-                                    <a href="../home_page/index.php?product_id=<?php echo $row['id'] ?>" class="btn btn-info">Add to cart</a>
-                                    <a href="../user_area/user_view_more_page.php?product_id=<?php echo $row['id'] ?>" class="btn btn-secondary">View more</a>
-                                </div>
-                            </div>
-                        </div>
-                    <?php $i++; } ?>
-                </div>
-            </div>
-
-
-            <div class="col-md-2 bg-secondary p-0">
-                <!-- side bar -->
-
-                <!-- brands to be desplayed  -->
-                <ul class="navbar-nav me-auto text-center">
-                    <li class="nav-item bg-info">
-                        <a href="" class="nav-link text-light"> <h4>Brands Name</h4> </a>
-                    </li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 1</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 2</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 3</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 4</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 5</a></li>
-                </ul>
-
-                <!-- categories to be desplayed  -->
-                <ul class="navbar-nav me-auto text-center">
-                    <li class="nav-item bg-info">
-                        <a href="" class="nav-link text-light">
-                            <h4>Categories</h4>
-                        </a>
-                    </li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Laptop</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Monitor</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">PC</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Sound System</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Accessories</a></li>
-                </ul>
-            </div>
+            <table>
+                <tr>
+                    <td></td>
+                    <td><img class="product_image" src="../admin_area/product_images/<?php echo $product_row['img'] ?>" alt=""></td>
+                </tr>
+                <tr>
+                    <td>Title</td>
+                    <td><?php echo $product_row['title'] ?></td>
+                </tr>
+                <tr>
+                    <td>Brand</td>
+                    <td><?php echo $product_row['brand'] ?></td>
+                </tr>
+                <tr>
+                    <td>country_of_origin</td>
+                    <td><?php echo $product_row['country_of_origin'] ?></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><?php echo $product_row['description'] ?></td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td><?php echo $product_row['price'] ?></td>
+                </tr>
+            </table>
+            
+            <!-- end of fourth child  -->
         </div>
-
-        <!-- end of fourth child  -->
-
-
-
-
-
     </div>
 
-
     <!-- last child -->
-
     <?php include('../include/footer.php'); ?>
 </body>
 

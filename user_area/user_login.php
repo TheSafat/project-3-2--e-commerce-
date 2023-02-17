@@ -46,8 +46,11 @@
                     <td></td>
                     <td><input type="submit" name="btn" value="Submit"></td>
                 </tr>
+                <tr></tr>
             </table>
         </form>
+
+        <a href="../admin_area/admin_login.php">Admin login here</a>
     </div>
 </body>
 </html>

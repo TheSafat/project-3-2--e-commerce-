@@ -7,7 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="admin_show_all_user_data.php">Show all user data</a>
-    <a href="admin_show_all_product_data.php">Show all products data</a>
+    <div>
+        <h2>Contact Us:</h2>
+        Email: jkkniu@gmail.com
+    </div>
 </body>
 </html>

@@ -8,6 +8,9 @@ class CrudApp{
 
     public function addProducts($data){
         $title = $data['title'];
+        $brand = $data['brand'];
+        $country_of_origin = $data['country_of_origin'];
+        $warranty = $data['warranty'];
         $description = $data['description'];
         $price = $data['price'];
         $keyword = $data['keyword'];
@@ -20,7 +23,7 @@ class CrudApp{
         $img_name = $_FILES['img']['name'];
         $tmp_name = $_FILES['img']['tmp_name'];
 
-        $sql = "INSERT INTO products (title, description, price, keyword, category, discount, stock, upload_date, total_sale, img) VALUES ('$title', '$description', $price, '$keyword', '$category', $discount, $stock, '$upload_date', $total_sale, '$img_name')";
+        $sql = "INSERT INTO products (title, brand, country_of_origin, warranty, description, price, keyword, category, discount, stock, upload_date, total_sale, img) VALUES ('$title',  '$brand', '$country_of_origin', $warranty,'$description', $price, '$keyword', '$category', $discount, $stock, '$upload_date', $total_sale, '$img_name')";
 
         if(mysqli_query($this->conn, $sql)){
             echo "Data inserted successfully";
@@ -61,6 +64,22 @@ class CrudApp{
         } 
     }
 
+    public function checkAdminLoginData($data){
+        $login_email = $data['email'];
+        $login_password = $data['password'];        
+
+        $sql = "SELECT * FROM admins WHERE email='$login_email'";        
+        $rows = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_assoc($rows);
+
+
+        if(@$row['email'] == $login_email && $row['password']==$login_password){
+            return true;
+        } else {
+            return false;
+        } 
+    }
+
     public function getID($email){
         $sql = "SELECT * FROM user WHERE email='$email'";
         $rows = mysqli_query($this->conn, $sql);
@@ -79,20 +98,7 @@ class CrudApp{
         return $result;
     }
 
-    public function checkAdminLoginData($data){
-        $login_email = $data['email'];
-        $login_password = $data['password'];        
-
-        $sql = "SELECT * FROM admins WHERE email='$login_email'";        
-        $rows = mysqli_query($this->conn, $sql);
-        $row = mysqli_fetch_assoc($rows);
-
-        if($row['email'] == $login_email && $row['password']==$login_password){
-            return true;
-        } else {
-            return false;
-        } 
-    }
+    
 
     public function displayData(){
         $sql = "SELECT * FROM user";
@@ -101,8 +107,33 @@ class CrudApp{
         return $result;
     }
 
+    public function displayProducts(){
+        $sql = "SELECT * FROM products";
+        $result = mysqli_query($this->conn, $sql);
+        //$row = mysqli_fetch_assoc($result);
+        return $result;
+    }
+    public function displayProductsBySearch($search){
+        $sql = "SELECT * FROM products";
+        $result = mysqli_query($this->conn, $sql);
+        //$row = mysqli_fetch_assoc($result);
+        return $result;
+    }
+
+    public function displayProductByID($id){
+        $sql = "SELECT * FROM products WHERE id='$id'";
+        $result = mysqli_query($this->conn, $sql);
+        //$row = mysqli_fetch_assoc($result);
+        return $result;
+    }
+
     public function deleteData($id){
         $sql = "DELETE FROM user WHERE id=$id";
+        mysqli_query($this->conn, $sql);
+    }
+
+    public function deleteProduct($id){
+        $sql = "DELETE FROM products WHERE id=$id";
         mysqli_query($this->conn, $sql);
     }
 
@@ -129,6 +160,25 @@ class CrudApp{
         if(mysqli_query($this->conn, $sql)){
             move_uploaded_file($tmp_name, 'upload/' . $img_name);
             echo "update successful";
+        }
+    }
+
+    public function cart(){
+        if(isset($_GET['product_id'])){
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $product_id = $_GET['product_id'];
+            $sql = "SELECT * FROM cart_details WHERE ip_address='$ip' AND product_id=$product_id";
+            $result = mysqli_query($this->conn, $sql);
+            $num_of_rows = mysqli_num_rows($result);
+            if($num_of_rows>0){
+                echo "<script> alert('This item is already present inside cart.') </script>";
+                echo "<script> window.open('../home_page/index.php', '_self') </script>";
+            } else {
+                $sql = "INSERT INTO cart_details (product_id, ip_address, quantity) VALUES ($product_id, '$ip', 0)";
+                $result = mysqli_query($this->conn, $sql);
+                echo "<script> alert('Item is added to cart.') </script>";
+                echo "<script> window.open('../home_page/index.php', '_self') </script>";
+            }
         }
     }
 }

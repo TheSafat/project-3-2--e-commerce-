@@ -7,7 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="admin_show_all_user_data.php">Show all user data</a>
-    <a href="admin_show_all_product_data.php">Show all products data</a>
+    <?php echo $_SERVER['REMOTE_ADDR']; ?>
 </body>
 </html>

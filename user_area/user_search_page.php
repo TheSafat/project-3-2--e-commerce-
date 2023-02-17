@@ -70,10 +70,6 @@
     </nav>
     <!-- end of first child -->
 
-    <!-- calling add to cart  -->
-    <?php
-        $objCrudAdmin->cart();
-    ?>
 
     <!-- second child  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
@@ -95,8 +91,9 @@
     <!-- second child ends  -->
 
 
-    <!-- third child -->
+    
     <div class="container-fluid">
+        <!-- third child -->    
         <div>
             <h3 class="text-center"> Daraz Store </h3>
             <p class="text-center">A new way of shopping</p>
@@ -105,9 +102,6 @@
 
 
         <!-- fourth child  -->
-
-
-
         <div class="row">
             <div class="col-md-10">
                 <!-- Products -->
@@ -121,7 +115,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['title'] ?></h5>
                                     <p class="card-text"><?php echo $row['description'] ?></p>
-                                    <a href="../home_page/index.php?product_id=<?php echo $row['id'] ?>" class="btn btn-info">Add to cart</a>
+                                    <a href="#" class="btn btn-info">Add to cart</a>
                                     <a href="../user_area/user_view_more_page.php?product_id=<?php echo $row['id'] ?>" class="btn btn-secondary">View more</a>
                                 </div>
                             </div>
@@ -163,16 +157,9 @@
         </div>
 
         <!-- end of fourth child  -->
-
-
-
-
-
     </div>
 
-
     <!-- last child -->
-
     <?php include('../include/footer.php'); ?>
 </body>
 

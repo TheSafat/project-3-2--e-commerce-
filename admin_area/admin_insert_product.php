@@ -4,7 +4,7 @@
 
     if(isset($_POST['btn'])){
         if($obj->addProducts($_POST)) echo "product inserted at database";
-        // header('location:admin_dashboard.php');
+        header('location:admin_dashboard.php');
     }
 
 ?>
@@ -26,6 +26,18 @@
                 <tr>
                     <td>Title</td>
                     <td><input type="text" name="title"></td>
+                </tr>
+                <tr>
+                    <td>Brand</td>
+                    <td><input type="text" name="brand"></td>
+                </tr>
+                <tr>
+                    <td>Country of Origin</td>
+                    <td><input type="text" name="contry_of_origin"></td>
+                </tr>
+                <tr>
+                    <td>Warranty</td>
+                    <td><input type="text" name="warranty"></td>
                 </tr>
                 <tr>
                     <td>Description</td>
@@ -54,7 +66,7 @@
                 </tr>
                 <tr>
                     <td>Upload Date</td>
-                    <td><input type="date" name="upload_date"></td>
+                    <td><input type="date" name="upload_date"></td> 
                 </tr>
                 <tr>
                     <td>Total Sale</td>
