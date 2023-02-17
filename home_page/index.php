@@ -59,7 +59,7 @@
                     <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="../user_area/user_registration.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.php" target="_blank">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i
+                    <li class="nav-item"><a class="nav-link" href="../user_area/user_cart.php"><i
                                 class="fa-sharp fa-solid fa-cart-shopping"></i><sup> <?php echo $objCrudAdmin->total_cart_item(); ?> </sup></a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Total Price:  <?php echo $objCrudAdmin->total_cart_price(); ?>  </a></li>
                 </ul>

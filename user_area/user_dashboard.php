@@ -51,8 +51,8 @@
                     <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="../user_area/user_registration.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fa-sharp fa-solid fa-cart-shopping"></i><sup>1</sup></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Total Price: 100/- </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fa-sharp fa-solid fa-cart-shopping"></i><sup> <?php echo $objCrudAdmin->total_cart_item(); ?> </sup></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Total Price:  <?php echo $objCrudAdmin->total_cart_price(); ?>  </a></li>
                 </ul>
 
                 <form class="d-flex" role="search">

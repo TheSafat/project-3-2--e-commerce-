@@ -12,7 +12,7 @@
 
             session_start();
             $_SESSION['id'] = $id;
-            header('location:user_dashboard.php');
+            header('location:../home_page/index.php');
         } else {
             echo "wrong password";
         }

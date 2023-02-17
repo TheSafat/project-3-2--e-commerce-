@@ -1,9 +1,6 @@
 <?php
     include('../function/function.php');
-
     $objCrudAdmin = new CrudApp();
-
-    $rows = $objCrudAdmin->displayProducts();
 
     session_start();
     if(@$_SESSION['id']){
@@ -12,10 +9,15 @@
         $user = 'Guest';
     }
 
-    $product_id = $_GET['product_id'];
+    if(isset($_POST['btn'])){
+        // $sql = "DELETE FROM cart_details WHERE"
+    }
 
-    $product_rows = $objCrudAdmin->displayProductByID($product_id);
-    $product_row = mysqli_fetch_assoc($product_rows);
+
+    $conn= mysqli_connect('localhost', 'root', '', 'project_db');
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $sql = "SELECT * FROM cart_details WHERE ip_address='$ip'";
+    $rows = mysqli_query($conn, $sql);
 
 ?>
 
@@ -50,8 +52,7 @@
     <nav class="navbar navbar-expand-lg bg-info">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">LOGO</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarScroll">
@@ -61,20 +62,19 @@
                     <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="../user_area/user_registration.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.php" target="_blank">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i
-                                class="fa-sharp fa-solid fa-cart-shopping"></i><sup> <?php echo $objCrudAdmin->total_cart_item(); ?> </sup></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Total Price:  <?php echo $objCrudAdmin->total_cart_price(); ?>   </a></li>
+                    <li class="nav-item"><a class="nav-link" href="../user_area/user_cart.php"><i
+                                class="fa-sharp fa-solid fa-cart-shopping"></i><sup>
+                                <?php echo $objCrudAdmin->total_cart_item(); ?> </sup></a></li>
                 </ul>
-
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
     <!-- end of first child -->
 
+    <!-- calling add to cart  -->
+    <?php
+        $objCrudAdmin->cart();
+    ?>
 
     <!-- second child  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
@@ -102,41 +102,56 @@
             <h3 class="text-center"> Daraz Store </h3>
             <p class="text-center">A new way of shopping</p>
         </div>
-        <!-- end of third child -->
+    </div>
+    <!-- end of third child -->
 
-
-        <!-- fourth child  -->
+    <!-- fourth child  -->
+    <div class="container">
         <div class="row">
-            <table>
-                <tr>
-                    <td></td>
-                    <td><img width="500px" class="product_image" src="../admin_area/product_images/<?php echo $product_row['img'] ?>" alt=""></td>
-                </tr>
-                <tr>
-                    <td>Title</td>
-                    <td><?php echo $product_row['title'] ?></td>
-                </tr>
-                <tr>
-                    <td>Brand</td>
-                    <td><?php echo $product_row['brand'] ?></td>
-                </tr>
-                <tr>
-                    <td>country_of_origin</td>
-                    <td><?php echo $product_row['country_of_origin'] ?></td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td><?php echo $product_row['description'] ?></td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td><?php echo $product_row['price'] ?></td>
-                </tr>
-            </table>
-            
-            <!-- end of fourth child  -->
+            <form action="" method="post">
+                <table class="table table-bordered text-center">
+                    <tr>
+                        <th>Product Title</th>
+                        <th>Product Image</th>
+                        <!-- <th>Quantity</th> -->
+                        <th>Price</th>
+                        <!-- <th>Remove</th> -->
+                        <th colspan="2">Operation</th>
+                    </tr>
+                    <?php
+                        while($row = mysqli_fetch_assoc($rows)){
+                            $product_id = $row['product_id'];
+                            $sql_2 = "SELECT * FROM products WHERE id=$product_id";
+                            $rows_2 = mysqli_query($conn, $sql_2);
+                            $row_2 = mysqli_fetch_assoc($rows_2);
+                    ?>
+
+                    <tr>
+                        <td><?php echo $row_2['title'] ?></td>
+                        <td><img width="200px" src="../admin_area/product_images/<?php echo $row_2['img'] ?>" alt=""></td>
+                        <td><?php echo $row_2['price'] ?></td>
+                        <td>
+                            <a href="user_remove_item_from_cart.php?cart_id=<?php echo $row_2['id'] ?>">Remove</a>
+                        </td>
+                    </tr>
+                    <?php 
+                        } 
+                    ?>
+                </table>
+
+            </form>
+        </div>
+        <!-- sub total  -->
+        <div class="d-flex m-5">
+            <h4 class="px-4">Subtotal: <strong class="text-info"><?php echo $objCrudAdmin->total_cart_price(); ?></strong></h4>
+            <a href="../home_page/index.php"><button class="bg-info px-3">Continue Shopping</button></a>
+            <a href="user_checkout.php"><button class="bg-secondary px-3 mx-2 text-light">Checkout</button></a>
         </div>
     </div>
+
+
+    <!-- fourth child ends -->
+
 
     <!-- last child -->
     <?php include('../include/footer.php'); ?>

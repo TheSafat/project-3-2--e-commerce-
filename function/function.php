@@ -6,6 +6,12 @@ class CrudApp{
 
     public function __construct(){
         $this->conn = mysqli_connect('localhost', 'root', '', 'project_db');
+        // echo "okkk";
+    }
+
+    public function getConnection(){
+        echo "connection ok";
+        return $this->conn;
     }
 
     public function addProducts($data){
@@ -59,7 +65,7 @@ class CrudApp{
         $rows = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_assoc($rows);
 
-        if($row['email'] == $login_email && $row['password']==$login_password){
+        if(@$row['email'] == $login_email && @$row['password']==$login_password){
             return true;
         } else {
             return false;
@@ -172,11 +178,14 @@ class CrudApp{
             $sql = "SELECT * FROM cart_details WHERE ip_address='$ip' AND product_id=$product_id";
             $result = mysqli_query($this->conn, $sql);
             $num_of_rows = mysqli_num_rows($result);
+            if(!$user_id = $_SESSION['id']){
+                header('location:../user_area/user_login.php');
+            }
             if($num_of_rows>0){
                 echo "<script> alert('This item is already present inside cart.') </script>";
                 echo "<script> window.open('../home_page/index.php', '_self') </script>";
             } else {
-                $sql = "INSERT INTO cart_details (product_id, ip_address, quantity) VALUES ($product_id, '$ip', 0)";
+                $sql = "INSERT INTO cart_details (product_id, ip_address, quantity, user_id) VALUES ($product_id, '$ip', 0, $user_id)";
                 $result = mysqli_query($this->conn, $sql);
                 echo "<script> alert('Item is added to cart.') </script>";
                 echo "<script> window.open('../home_page/index.php', '_self') </script>";
