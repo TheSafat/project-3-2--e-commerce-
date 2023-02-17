@@ -2,6 +2,8 @@
 
 class CrudApp{
     private $conn;
+    // private $count_cart_item;
+
     public function __construct(){
         $this->conn = mysqli_connect('localhost', 'root', '', 'project_db');
     }
@@ -180,6 +182,40 @@ class CrudApp{
                 echo "<script> window.open('../home_page/index.php', '_self') </script>";
             }
         }
+    }
+
+    public function total_cart_item(){
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $sql = "SELECT * FROM cart_details WHERE ip_address='$ip'";
+        $result = mysqli_query($this->conn, $sql);
+        $num_of_rows = mysqli_num_rows($result);
+        
+        return $num_of_rows;
+    }
+    public function total_cart_price(){
+
+        $total_price = 0;
+
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $sql = "SELECT * FROM cart_details WHERE ip_address='$ip'";
+        $rows = mysqli_query($this->conn, $sql);
+        // $num_of_rows = mysqli_num_rows($result);
+        while($row = mysqli_fetch_assoc($rows)){
+            $product_id = $row['product_id'];
+            
+            $sql_2 = "SELECT * FROM products WHERE id=$product_id";
+            $rows_2 = mysqli_query($this->conn, $sql_2);
+
+            $row_2 = mysqli_fetch_assoc($rows_2);
+
+            $product_price = $row_2['price'];
+
+            $total_price += $product_price;
+        }
+        
+        return $total_price;
     }
 }
 

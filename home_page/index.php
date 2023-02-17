@@ -12,6 +12,9 @@
         $user = 'Guest';
     }
 
+    // $a = $objCrudAdmin->count_cart_item();
+    // echo $a;
+
 ?>
 
 <!DOCTYPE html>
@@ -57,8 +60,8 @@
                     <li class="nav-item"><a class="nav-link" href="../user_area/user_registration.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.php" target="_blank">Contact</a></li>
                     <li class="nav-item"><a class="nav-link" href="#"><i
-                                class="fa-sharp fa-solid fa-cart-shopping"></i><sup>1</sup></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Total Price: 100/- </a></li>
+                                class="fa-sharp fa-solid fa-cart-shopping"></i><sup> <?php echo $objCrudAdmin->total_cart_item(); ?> </sup></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Total Price:  <?php echo $objCrudAdmin->total_cart_price(); ?>  </a></li>
                 </ul>
 
                 <form class="d-flex" role="search">
@@ -121,6 +124,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['title'] ?></h5>
                                     <p class="card-text"><?php echo $row['description'] ?></p>
+                                    <p class="card-text">Price: <?php echo $row['price'] ?></p>
                                     <a href="../home_page/index.php?product_id=<?php echo $row['id'] ?>" class="btn btn-info">Add to cart</a>
                                     <a href="../user_area/user_view_more_page.php?product_id=<?php echo $row['id'] ?>" class="btn btn-secondary">View more</a>
                                 </div>
