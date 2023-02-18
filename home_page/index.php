@@ -176,7 +176,6 @@
 
 
     <!-- last child -->
-
     <?php include('../include/footer.php'); ?>
 </body>
 
