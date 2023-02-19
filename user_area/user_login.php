@@ -14,7 +14,8 @@
             $_SESSION['id'] = $id;
             header('location:../home_page/index.php');
         } else {
-            echo "wrong password";
+            // echo "wrong password";
+            echo "<script>alert('wrong password')</script>";
         }
     }
 

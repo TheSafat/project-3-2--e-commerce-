@@ -149,11 +149,11 @@
                     <li class="nav-item bg-info">
                         <a href="" class="nav-link text-light"> <h4>Brands Name</h4> </a>
                     </li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 1</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 2</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 3</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 4</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Brand 5</a></li>
+                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=apple" class="nav-link text-light">Apple</a></li>
+                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=hp" class="nav-link text-light">HP</a></li>
+                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=asus" class="nav-link text-light">Asus</a></li>
+                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=msi" class="nav-link text-light">MSI</a></li>
+                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=lanovo" class="nav-link text-light">Lanovo</a></li>
                 </ul>
 
                 <!-- categories to be desplayed  -->
@@ -163,11 +163,11 @@
                             <h4>Categories</h4>
                         </a>
                     </li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Laptop</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Monitor</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">PC</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Sound System</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">Accessories</a></li>
+                    <li class="nav-item"><a href="../user_area/user_category_page.php?option=laptop" class="nav-link text-light">Laptop</a></li>
+                    <li class="nav-item"><a href="../user_area/user_category_page.php?option=monitor" class="nav-link text-light">Monitor</a></li>
+                    <li class="nav-item"><a href="../user_area/user_category_page.php?option=pc" class="nav-link text-light">PC</a></li>
+                    <li class="nav-item"><a href="../user_area/user_category_page.php?option=sound_system" class="nav-link text-light">Sound System</a></li>
+                    <li class="nav-item"><a href="../user_area/user_category_page.php?option=accessories" class="nav-link text-light">Accessories</a></li>
                 </ul>
             </div>
         </div>

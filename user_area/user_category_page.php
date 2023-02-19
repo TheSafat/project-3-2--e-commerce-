@@ -1,13 +1,23 @@
 <?php
     include('../function/function.php');
+
+    $conn = mysqli_connect('localhost', 'root', '', 'project_db');
+
     $objCrudAdmin = new CrudApp();
-    $rows = $objCrudAdmin->displayProducts();
+    // $rows2 = $objCrudAdmin->displayProducts();
 
     session_start();
     if(@$_SESSION['id']){
         $user = $objCrudAdmin->getName($_SESSION['id']);
     } else {
         $user = 'Guest';
+    }
+
+    if(isset($_GET['option'])){
+        $option = $_GET['option'];
+        // echo $search_key;
+        $sql = "SELECT * FROM products WHERE category='$option'";
+        $rows = mysqli_query($conn, $sql);
     }
 
     $objCrudAdmin->cart();
@@ -147,11 +157,11 @@
                             <h4>Brands Name</h4>
                         </a>
                     </li>
-                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=apple" class="nav-link text-light">Apple</a></li>
-                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=hp" class="nav-link text-light">HP</a></li>
-                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=asus" class="nav-link text-light">Asus</a></li>
-                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=msi" class="nav-link text-light">MSI</a></li>
-                    <li class="nav-item"><a href="../user_area/user_brand_page.php?option=lanovo" class="nav-link text-light">Lanovo</a></li>
+                    <li class="nav-item"><a href="" class="nav-link text-light">Apple</a></li>
+                    <li class="nav-item"><a href="" class="nav-link text-light">HP</a></li>
+                    <li class="nav-item"><a href="" class="nav-link text-light">Asus</a></li>
+                    <li class="nav-item"><a href="" class="nav-link text-light">MSI</a></li>
+                    <li class="nav-item"><a href="" class="nav-link text-light">Lanovo</a></li>
                 </ul>
 
                 <!-- categories to be desplayed  -->

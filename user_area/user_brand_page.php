@@ -1,13 +1,23 @@
 <?php
     include('../function/function.php');
+
+    $conn = mysqli_connect('localhost', 'root', '', 'project_db');
+
     $objCrudAdmin = new CrudApp();
-    $rows = $objCrudAdmin->displayProducts();
+    // $rows2 = $objCrudAdmin->displayProducts();
 
     session_start();
     if(@$_SESSION['id']){
         $user = $objCrudAdmin->getName($_SESSION['id']);
     } else {
         $user = 'Guest';
+    }
+
+    if(isset($_GET['option'])){
+        $option = $_GET['option'];
+        // echo $search_key;
+        $sql = "SELECT * FROM products WHERE brand='$option'";
+        $rows = mysqli_query($conn, $sql);
     }
 
     $objCrudAdmin->cart();

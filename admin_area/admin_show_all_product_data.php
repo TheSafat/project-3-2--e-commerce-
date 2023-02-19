@@ -16,7 +16,7 @@
     <title>Document</title>
 </head>
 <body>
-    <table class="table table-bordered">
+    <table border="2">
         <tr>
             <td>ID</td>
             <td>Title</td>

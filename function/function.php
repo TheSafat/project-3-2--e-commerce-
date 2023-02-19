@@ -2,7 +2,6 @@
 
 class CrudApp{
     private $conn;
-    // private $count_cart_item;
 
     public function __construct(){
         $this->conn = mysqli_connect('localhost', 'root', '', 'project_db');
@@ -65,11 +64,15 @@ class CrudApp{
         $rows = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_assoc($rows);
 
-        if(@$row['email'] == $login_email && @$row['password']==$login_password){
-            return true;
+        if(mysqli_num_rows($rows)==1){
+            if(@$row['email'] == $login_email && @$row['password']==$login_password){
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
-        } 
+        }
     }
 
     public function checkAdminLoginData($data){
