@@ -1,9 +1,9 @@
 <?php
     include('../function/function.php');
 
-    $objCrudAdmin = new CrudApp();
+    $obj = new CrudApp();
 
-    $rows = $objCrudAdmin->displayProducts();
+    $rows = $obj->displayProducts();
 
 ?>
 
@@ -16,7 +16,7 @@
     <title>Document</title>
 </head>
 <body>
-    <table border=1>
+    <table class="table table-bordered">
         <tr>
             <td>ID</td>
             <td>Title</td>
@@ -32,6 +32,7 @@
             <td>Upload Date</td>
             <td>Total Sale</td>
             <td>Image</td>
+            <td>Action</td>
         </tr>
         <?php while($row = mysqli_fetch_assoc($rows)){ ?>
         <tr>

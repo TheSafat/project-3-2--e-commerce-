@@ -7,6 +7,11 @@
 
         if($flag){
             echo "login successful";
+            
+            $id = $obj->getAdminID($_POST['email']);
+            session_start();
+            $_SESSION['id'] = $id;
+
             header('location:admin_dashboard.php');
         } else {
             echo "wrong password";

@@ -97,8 +97,26 @@ class CrudApp{
         return $result;
     }
 
+    public function getAdminID($email){
+        $sql = "SELECT * FROM admins WHERE email='$email'";
+        $rows = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_assoc($rows);
+
+        $result = $row['id'];
+        return $result;
+    }
+
     public function getName($id){
         $sql = "SELECT * FROM user WHERE id='$id'";
+        $rows = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_assoc($rows);
+
+        $result = $row['name'];
+        return $result;
+    }
+
+    public function getAdminName($id){
+        $sql = "SELECT * FROM admins WHERE id='$id'";
         $rows = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_assoc($rows);
 

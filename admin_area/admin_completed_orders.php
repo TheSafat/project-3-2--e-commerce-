@@ -4,7 +4,7 @@
     $rows = mysqli_query($conn, $sql);
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,8 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-<table border=1>
+<body> -->
+<table class="table table-bodered">
         <tr>
             <td>Order ID</td>
             <td>User Id</td>
@@ -35,5 +35,5 @@
         </tr>
         <?php } ?>
     </table>
-</body>
-</html>
+<!-- </body>
+</html> -->

@@ -54,7 +54,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../home_page/index.php">Home</a></li>
 
                     <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="../user_area/user_registration.php">Register</a></li>
@@ -64,10 +64,22 @@
                     <li class="nav-item"><a class="nav-link" href="#">Total Price:  <?php echo $objCrudAdmin->total_cart_price(); ?>  </a></li>
                 </ul>
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <!-- search starts here  -->
+                <form method="GET" class="d-flex" role="search">
+                    <input name="search_key" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">
+                <!-- <a href="user_search_page.php"> -->
+                    <input type="submit" name="search_btn" value="Search">
+                <!-- </a> -->
+            </button>
                 </form>
+                <?php
+                    if(isset($_GET['search_btn'])){
+                        $search_key = $_GET['search_key'];
+                        header('location:../user_area/user_search_page.php?search_key=' . $search_key);
+                    }
+                ?>
+                <!-- search ends here  -->
             </div>
         </div>
     </nav>

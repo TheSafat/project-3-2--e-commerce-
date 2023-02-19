@@ -1,15 +1,23 @@
 <?php
     include('../function/function.php');
 
-    $objCrudAdmin = new CrudApp();
+    $conn = mysqli_connect('localhost', 'root', '', 'project_db');
 
-    $rows = $objCrudAdmin->displayProducts();
+    $objCrudAdmin = new CrudApp();
+    // $rows2 = $objCrudAdmin->displayProducts();
 
     session_start();
     if(@$_SESSION['id']){
         $user = $objCrudAdmin->getName($_SESSION['id']);
     } else {
         $user = 'Guest';
+    }
+
+    if(isset($_GET['search_key'])){
+        $search_key = $_GET['search_key'];
+        // echo $search_key;
+        $sql = "SELECT * FROM products WHERE title LIKE '%$search_key%'";
+        $rows = mysqli_query($conn, $sql);
     }
 
 ?>
@@ -51,20 +59,30 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../home_page/index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="../user_area/user_registration.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.php" target="_blank">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i
-                                class="fa-sharp fa-solid fa-cart-shopping"></i><sup>1</sup></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Total Price: 100/- </a></li>
+                    <li class="nav-item"><a class="nav-link" href="../user_area/user_cart.php"><i class="fa-sharp fa-solid fa-cart-shopping"></i><sup> <?php echo $objCrudAdmin->total_cart_item(); ?> </sup></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Total Price:  <?php echo $objCrudAdmin->total_cart_price(); ?>  </a></li>
                 </ul>
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <!-- search starts here  -->
+                <form method="GET" class="d-flex" role="search">
+                    <input name="search_key" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">
+                <!-- <a href="user_search_page.php"> -->
+                    <input type="submit" name="search_btn" value="Search">
+                <!-- </a> -->
+            </button>
                 </form>
+                <?php
+                    if(isset($_GET['search_btn'])){
+                        $search_key = $_GET['search_key'];
+                        header('location:../user_area/user_search_page.php?search_key=' . $search_key);
+                    }
+                ?>
+                <!-- search ends here  -->
             </div>
         </div>
     </nav>
@@ -79,8 +97,7 @@
             <?php
                 if($user=='Guest'){
                     echo '<li class="nav-item"><a class="nav-link" href="../user_area/user_login.php">Login</a></li>';
-                }
-                else {
+                } else {
                     echo '<li class="nav-item"><a class="nav-link" href="../user_area/user_logout.php">Logout</a></li>';
                     echo '<li class="nav-item"><a class="nav-link" href="../user_area/user_dashboard.php">Your Profile</a></li>';
                 }
@@ -106,7 +123,6 @@
             <div class="col-md-10">
                 <!-- Products -->
                 <div class="row">
-
                     <?php $i=0; while(($row = mysqli_fetch_assoc($rows)) && $i<15){ ?>
                         <div class="col-md-3 mb-4">
                             <div class="card">
